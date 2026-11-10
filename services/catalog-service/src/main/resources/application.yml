@@ -1,0 +1,12 @@
+# Base config: packaged in the jar, valid in every environment, no secrets.
+# Environment-specific values (DB URL, credentials) come from env vars, e.g. SPRING_DATASOURCE_URL.
+
+spring:
+  application:
+    name: catalog-service
+  jpa:
+    # Release the DB connection when the transaction ends, not when the HTTP response is written.
+    open-in-view: false
+    hibernate:
+      # Flyway owns the schema (MIN-10); Hibernate only checks entities match it.
+      ddl-auto: validate
