@@ -1,0 +1,20 @@
+# Local infrastructure for MiniBrack (dev only).
+# Started automatically by catalog-service's bootRun (Spring Boot Docker Compose support),
+# or by hand: docker compose -f infra/compose.yaml up -d
+
+name: minibrack
+
+services:
+  catalog-db:
+    image: postgres:17   # keep in sync with TestcontainersConfiguration in catalog-service
+    environment:
+      POSTGRES_DB: catalog
+      POSTGRES_USER: catalog
+      POSTGRES_PASSWORD: catalog   # local dev only
+    ports:
+      - "5433:5432"   # 5432 on the host is often taken by other projects
+    volumes:
+      - catalog-pgdata:/var/lib/postgresql/data
+
+volumes:
+  catalog-pgdata:
